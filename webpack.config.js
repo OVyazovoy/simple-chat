@@ -5,7 +5,13 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-    entry: "./src/index.js",
+    entry: {
+        app: ["./src/index.js"],
+        vendor: [
+            "react",
+            "react-dom",
+        ]
+    },
     devServer: {
         contentBase: path.join(__dirname, './dist/'),
         path: path.join(__dirname, './dist/'),
@@ -16,7 +22,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, './dist/'),
         publicPath: '/dist/',
-        filename: "bundle.js"
+        filename: "[name].js"
     },
     module: {
         loaders: [
@@ -25,7 +31,7 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: 'babel',
                 query: {
-                    presets: ['es2015']
+                    presets: ['es2015','react']
                 }
             },
             {

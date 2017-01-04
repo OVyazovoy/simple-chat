@@ -1,9 +1,10 @@
+import './../node_modules/materialize-css/sass/materialize.scss';
+import './assets/styles/index.scss';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from 'components/App';
 
-require('./../node_modules/materialize-css/sass/materialize.scss');
-require('./assets/styles/index.scss')
-
-
-
-console.log(123)
-console.log(123)
-console.log(123)
+ReactDOM.render(
+    <App />,
+    document.getElementById('root')
+);
