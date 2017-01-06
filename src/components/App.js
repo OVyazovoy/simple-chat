@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
 import Chat from './Chat'
 
 class App extends Component {
@@ -8,7 +10,9 @@ class App extends Component {
 
     render() {
         return (
-           <Chat />
+            <Provider store={createStore(()=>{})} >
+                <Chat />
+            </Provider>
         )
     }
 }

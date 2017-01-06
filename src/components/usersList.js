@@ -11,8 +11,10 @@ class UserList extends Component {
 
     getList() {
         return this.state.Users.map((user, id) =>
-            <li key={id}
-            >{user.first}
+            <li
+                key={id}
+            >
+                {user.first}
                 <button
                     onClick={this.clickHandler.bind(this, id)}
                 >
@@ -22,7 +24,7 @@ class UserList extends Component {
     }
 
     clickHandler(id) {
-        const state  = this.state.Users.slice(1,id+1);
+        const state = this.state.Users.slice(1, id + 1);
         this.setState({state})
     }
 
