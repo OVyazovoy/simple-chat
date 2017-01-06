@@ -1,21 +1,26 @@
 import React, {Component} from 'react';
 import ChatElement from './ChatElement';
 import SendForm from './SendForm';
-import History from './../../stubs/chatHistory';
+import History from '../../store/chatHistory';
+import { connect } from 'react-redux';
+
 
 class ChatList extends Component {
     constructor(props){
         super(props);
         this.state = {
-            History
+            History: props.message
         }
     }
     _getHistory(){
-        return this.state.History.map((element) => <ChatElement
-            key={element.id}
-            text={element.text}
-            user={element.user}
-        />);
+        if(this.state.History)
+            return this.state.History.map((element) => <ChatElement
+                        key={element.id}
+                        text={element.text}
+                        user={element.user}
+                    />);
+        else
+            return []
     }
     _getLastId(){
         return History[History.length - 1].id
@@ -42,4 +47,4 @@ class ChatList extends Component {
     }
 }
 
-export default ChatList;
+export default connect(store => store)(ChatList);

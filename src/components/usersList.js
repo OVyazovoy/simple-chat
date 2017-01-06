@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Users from '../stubs/users';
+import Users from '../store/users';
 
 class UserList extends Component {
     constructor(props = {}) {
@@ -24,7 +24,8 @@ class UserList extends Component {
     }
 
     clickHandler(id) {
-        const state = this.state.Users.slice(1, id + 1);
+        let state = this.state.Users;
+        state.splice(id,1);
         this.setState({state})
     }
 
