@@ -1,18 +1,16 @@
 import React, {Component} from 'react';
-import {Provider} from 'react-redux';
-import {createStore} from 'redux';
-import Chat from './Chat'
+import ChatContainer from '../containers/Chat';
 
 class App extends Component {
     constructor(props = {}) {
-        super(props)
+        super(props);
+        this.props.onLoad()
+        window.setInterval(() => this.props.onLoad(), 20000)
     }
 
     render() {
         return (
-            <Provider store={createStore(()=>{})} >
-                <Chat />
-            </Provider>
+            <ChatContainer />
         )
     }
 }

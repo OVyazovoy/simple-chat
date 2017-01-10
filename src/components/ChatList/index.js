@@ -1,42 +1,40 @@
 import React, {Component} from 'react';
 import ChatElement from './ChatElement';
 import SendForm from './SendForm';
-import History from './../../stubs/chatHistory';
 
 class ChatList extends Component {
     constructor(props){
         super(props);
-        this.state = {
-            History
-        }
     }
     _getHistory(){
-        return this.state.History.map((element) => <ChatElement
-            key={element.id}
-            text={element.text}
-            user={element.user}
+        if(this.props.history.length <= 0){
+            return <ChatElement
+                key={0}
+                message={{
+                    text: "HELLO",
+                    user: "TEST",
+                    time: "NOW2"
+                }}
+            />
+        }
+        return this.props.history.map((message, i) => <ChatElement
+            key={i}
+            message={message}
         />);
-    }
-    _getLastId(){
-        return History[History.length - 1].id
-    }
-    addToHistory(text){
-        History.push({
-            id: this._getLastId() + 1,
-            user: 'sdf',
-            text
-        });
-        this.setState({History});
     }
     render() {
         const history = this._getHistory();
         return (
             <div className="col s8 chat-list  lighten-5 card-panel grey">
-                {history}
+                <div
+                    style={{maxHeight:300 + 'px', overflow: 'scroll'}}
+                    className="col s12"
+                >
+                    {history}
+                </div>
                 <SendForm
-                    addToHistory={this.addToHistory.bind(this)}
+                    addToHistory={this.props.addToHistory.bind(this)}
                 />
-
             </div>
         )
     }

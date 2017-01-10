@@ -10,15 +10,23 @@ class SendForm extends Component {
         }
     }
     submitHandler(e){
-        e.preventDefault()
+        e.preventDefault();
 
-        const val = ReactDOM.findDOMNode(this.refs.textarea).value;
+        let textarea = ReactDOM.findDOMNode(this.refs.textarea);
+        const val = textarea.value;
 
         if(val == ''){
             this.setState({textareaError:true})
         }else {
             this.setState({textareaError:false})
-            this.props.addToHistory(val)
+            this.props.addToHistory(val);
+            textarea.value = '';
+        }
+    }
+    enterClick(e){
+        const code = e.keyCode;
+        if(code == 13){
+            this.submitHandler(e);
         }
     }
     render(){
@@ -38,6 +46,7 @@ class SendForm extends Component {
                                 className={textareaClass}
                                 placeholder="Textarea"
                                 ref='textarea'
+                                onKeyDown={this.enterClick.bind(this)}
                             />
                             <button
                                 className="btn col s2 offset-s1"
