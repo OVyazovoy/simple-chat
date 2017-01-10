@@ -1,13 +1,17 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-
+import { connect } from 'react-redux'
 class SendForm extends Component {
     constructor(props){
-        super(props)
+        super(props);
         this.state = {
             textareaError: false
-        }
+        };
+
+        const { dispatch } =  props;
+        console.log(arguments);
+        dispatch({type: 'ADD_MESSAGE'});
     }
     submitHandler(e){
         e.preventDefault();
@@ -64,4 +68,4 @@ class SendForm extends Component {
     }
 }
 
-export default SendForm;
+export default connect(store => store)(SendForm);
