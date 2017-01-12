@@ -8,10 +8,6 @@ class SendForm extends Component {
         this.state = {
             textareaError: false
         };
-
-        const { dispatch } =  props;
-        console.log(arguments);
-        dispatch({type: 'ADD_MESSAGE'});
     }
     submitHandler(e){
         e.preventDefault();

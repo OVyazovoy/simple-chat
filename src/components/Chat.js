@@ -5,16 +5,17 @@ import ChatListContainer from '../containers/ChatListContainer';
 class Chat extends Component {
     constructor(props = {}){
         super(props);
-
-        console.log(props);
-
+        this.props.init()
     }
     render(){
+        const socket = this.props.socket;
         return(
             <div className="container chat-container  ">
                 <div className="row">
                     <UserList />
-                    <ChatListContainer />
+                    <ChatListContainer
+                        socket = {socket}
+                    />
                 </div>
 
             </div>

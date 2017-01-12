@@ -5,6 +5,7 @@ import SendForm from './SendForm';
 class ChatList extends Component {
     constructor(props){
         super(props);
+
     }
     _getHistory(){
         if(this.props.history.length <= 0){
@@ -13,7 +14,7 @@ class ChatList extends Component {
                 message={{
                     text: "HELLO",
                     user: "TEST",
-                    time: "NOW2"
+                    time: "NOW"
                 }}
             />
         }

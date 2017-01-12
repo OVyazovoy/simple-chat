@@ -5,6 +5,7 @@ class ChatElement extends Component {
         super(props)
     }
     render(){
+        console.log(this.props);
         return(
             <div className="col s12">
                 <div className="card-panel white lighten-5 z-depth-1">

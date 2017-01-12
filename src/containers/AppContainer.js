@@ -9,11 +9,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onLoad: () => {
-            return fetch('/history').
-                then( resp => resp.json() ).
-                then( history => {
-                    dispatch(loadHistory(history));
-                });
         }
     }
 };
