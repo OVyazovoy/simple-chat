@@ -3,7 +3,12 @@ import { combineReducers } from 'redux'
 const initialGeneralState = {
     history: {
         isFetching: false,
-        items: []
+        items: [],
+    },
+    user: {
+        isFetching: false,
+        id: null,
+        name: null
     }
 };
 
@@ -20,6 +25,8 @@ const general = (state = initialGeneralState, action) => {
             return clearHistory(state, action);
         case 'ADD_MESSAGE':
             return addMessageReducer(state, action);
+        case 'ADD_USER':
+            return addUser(state, action);
         default:
             return state;
     }
@@ -80,6 +87,20 @@ const addMessageReducer = function (state = initialGeneralState, action){
     if(action.message != undefined){
         newState.history.items.push(action.message);
     }
+
+    return newState;
+};
+const addUser = function (state = initialGeneralState, action) {
+    let newState = Object.assign({}, state);
+
+    newState.user = {
+        isFetching: state.user.isFetching,
+        id: action.user.id,
+        name: action.user.name,
+    };
+
+    console.log('action',action);
+    console.log('newState',newState);
 
     return newState;
 };

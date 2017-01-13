@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import ChatList from  '../components/ChatList';
 import { addNew, loadHistory,
     startFetchHistory, stopFetchHistory,
-    clearHistory
+    clearHistory, addUser
 } from '../actions'
 
 let socket;
@@ -45,8 +45,8 @@ const mapDispatchToProps = (dispatch) => {
             }).then( resp => {
                 return resp.json();
             }).then( (user) =>  {
-                console.log('user');
-                console.log(user);
+                console.log('user',user)
+                dispatch(addUser(user));
             });
 
             dispatch(startFetchHistory());

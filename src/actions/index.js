@@ -15,3 +15,6 @@ export const stopFetchHistory = () => {
 export const clearHistory = () => {
     return { type: 'CLEAR_HISTORY'}
 };
+export const addUser = (user) => {
+    return { type: 'ADD_USER', user}
+};
