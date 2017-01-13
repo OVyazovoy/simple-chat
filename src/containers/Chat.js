@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import Chat from  '../components/Chat';
 import io from 'socket.io-client';
 
-import {addMessage} from '../actions/index';
+import {addMessage,clearHistory} from '../actions/index';
 const testStore = function (state) {
     return state.history
 };
@@ -24,11 +24,12 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         init: () => {
-            console.log('chat init');
+            console.log('Chat init');
             socket.on('ADD_MESSAGE', data => {
-                console.log(data,'zxczxc');
                 dispatch(addMessage(JSON.parse(data).message))
-
+            });
+            socket.on('CLEAR_HISTORY', data => {
+                dispatch(clearHistory())
             });
         }
     }

@@ -1,6 +1,9 @@
 import { connect } from 'react-redux';
 import ChatList from  '../components/ChatList';
-import { addNew, loadHistory} from '../actions'
+import { addNew, loadHistory,
+    startFetchHistory, stopFetchHistory,
+    clearHistory
+} from '../actions'
 
 let socket;
 const getHistory = function (state) {
@@ -19,6 +22,14 @@ const mapDispatchToProps = (dispatch) => {
 
 
     return {
+        clearHistory: () => {
+            fetch('/clear/history').
+            then( resp => {
+                return resp.json();
+            }).then(() => {
+                dispatch(clearHistory())
+            })
+        },
         addToHistory: (text) => {
             socket.emit('ADD_MESSAGE',JSON.stringify({ 'message': {text} }));
 
@@ -40,12 +51,14 @@ const mapDispatchToProps = (dispatch) => {
             // catch( () => alert('error') );
         },
         onLoad: () => {
-            // fetch('/history').
-            //     then( resp => {
-            //     return resp.json();
-            // }).then(history => {
-            //     dispatch(loadHistory(history))
-            // })
+            dispatch(startFetchHistory());
+            fetch('/history').
+                then( resp => {
+                return resp.json();
+            }).then(history => {
+                dispatch(loadHistory(history));
+                dispatch(stopFetchHistory())
+            })
         },
     }
 };

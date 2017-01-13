@@ -33,6 +33,11 @@ io.on('connection', function(socket){
     })
 });
 
+app.get('/clear/history', function(req, res, next){
+    history = [];
+    io.emit('CLEAR_HISTORY');
+    res.send(history);
+});
 app.get('/history', function(req, res, next){
     res.send(history);
 });
@@ -40,37 +45,3 @@ app.get('/history', function(req, res, next){
 http.listen(3000, function(){
     console.log('listening on *:3000');
 });
-//
-// app.get('/', function(req, res, next){
-//     res.end();
-// });
-//
-// app.post('/test', function(req, res, next){
-//     var message = req.body.message;
-//
-//     if(isUndefind(message)){
-//         res.status(400).send('no message');
-//     }
-//     message.user = 'Jone Dou';
-//     message.time = new Date().toDateString();
-//
-//     history.push(message);
-//     res.send(message);
-// });
-// app.get('/history', function(req, res, next){
-//     res.send(history);
-// });
-//
-// // app.ws('/history', function(ws, req) {
-// //     ws.on('message', function(msg) {
-// //         console.log(JSON.parse(msg).type);
-// //     });
-// //     console.log('socket', req.testing);
-// // });
-// io.on('connection', function(socket){
-//     console.log('a user connected');
-//     socket.on('disconnect', function(){
-//         console.log('user disconnected');
-//     });
-// });
-// app.listen(3000);
