@@ -23,11 +23,13 @@ const mapDispatchToProps = (dispatch) => {
 
     return {
         clearHistory: () => {
+            dispatch(startFetchHistory());
             fetch('/clear/history').
             then( resp => {
                 return resp.json();
             }).then(() => {
-                dispatch(clearHistory())
+                dispatch(clearHistory());
+                dispatch(stopFetchHistory())
             })
         },
         addToHistory: (text) => {

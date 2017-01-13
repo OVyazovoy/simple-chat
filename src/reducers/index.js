@@ -50,15 +50,19 @@ const loadHistory = function (state = initialGeneralState, action){
 };
 const startFetchingHistory = function (state = initialGeneralState, action){
     let newState = Object.assign({}, state);
-    newState.history.isFetching = true;
-    state.history.items.forEach((element) => newState.history.items.push(element));
+    newState.history = {
+        isFetching: true,
+        items: state.history.items.map(element => element)
+    };
     return newState;
 };
 
 const stopFetchingHistory = function (state = initialGeneralState, action){
     let newState = Object.assign({}, state);
-    newState.history.isFetching = false;
-    state.history.items.forEach((element) => newState.history.items.push(element));
+    newState.history = {
+        isFetching: false,
+        items: state.history.items.map(element => element)
+    };
     return newState;
 };
 

@@ -7,7 +7,7 @@ export const loadHistory = (historyJson) => {
     return { type: 'LOAD_HISTORY', historyJson}
 };
 export const startFetchHistory = () => {
-    return { type: 'FETCHING_HISTORY'}
+    return { type: 'START_FETCHING_HISTORY'}
 };
 export const stopFetchHistory = () => {
     return { type: 'STOP_FETCHING_HISTORY'}
