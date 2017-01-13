@@ -1,4 +1,6 @@
 var express = require('express');
+var md5 = require('md5');
+
 var app = express();
 // var expressWs = require('express-ws')(app);
 var path = require('path');
@@ -15,6 +17,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 
 var history = [];
+var activeUsers = [];
 var isUndefind = function (val) { return val === undefined };
 
 app.get('/', function(req, res){
@@ -40,6 +43,15 @@ io.on('connection', function(socket){
     })
 });
 
+app.post('/setName', function(req, res, next){
+    var name = req.body.name;
+    var user = {
+        id: md5(name),
+        name: name
+    };
+    activeUsers.push(user);
+    res.send(user);
+});
 app.get('/clear/history', function(req, res, next){
     history = [];
     io.emit('CLEAR_HISTORY');

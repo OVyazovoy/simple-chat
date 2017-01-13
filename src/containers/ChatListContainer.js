@@ -35,9 +35,22 @@ const mapDispatchToProps = (dispatch) => {
             socket.emit('ADD_MESSAGE',JSON.stringify({ 'message': {text} }));
         },
         onLoad: () => {
+            var headers = new Headers();
+            headers.set('Content-Type', 'application/json');
+
+            fetch('/setName', {
+                headers: headers,
+                method: 'post',
+                body: JSON.stringify({'name': 'test'})
+            }).then( resp => {
+                return resp.json();
+            }).then( (user) =>  {
+                console.log('user');
+                console.log(user);
+            });
+
             dispatch(startFetchHistory());
-            fetch('/history').
-                then( resp => {
+            fetch('/history'). then( resp => {
                 return resp.json();
             }).then(history => {
                 dispatch(loadHistory(history));
