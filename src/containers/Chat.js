@@ -26,6 +26,8 @@ const mapDispatchToProps = (dispatch) => {
         init: () => {
             console.log('Chat init');
             socket.on('ADD_MESSAGE', data => {
+                console.log('234234234234234');
+                console.log(data);
                 dispatch(addMessage(JSON.parse(data).message))
             });
             socket.on('CLEAR_HISTORY', data => {

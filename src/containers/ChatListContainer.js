@@ -6,6 +6,7 @@ import { addNew, loadHistory,
 } from '../actions'
 
 let socket;
+
 const getHistory = function (state) {
     return state.general.history
 };
@@ -19,8 +20,6 @@ const mapStateToProps = (state,ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-
-
     return {
         clearHistory: () => {
             dispatch(startFetchHistory());
@@ -34,23 +33,6 @@ const mapDispatchToProps = (dispatch) => {
         },
         addToHistory: (text) => {
             socket.emit('ADD_MESSAGE',JSON.stringify({ 'message': {text} }));
-
-            // var headers = new Headers();
-            // headers.set('Content-Type', 'application/json');
-            //
-            // fetch('/test', {
-            //     headers: headers,
-            //     method: 'post',
-            //     body: JSON.stringify({ 'message': {text} })
-            // }).
-            //     then( resp => {
-            //     return resp.json();
-            // }).
-            //     then( (message) =>  {
-            //     console.log(message);
-            //     dispatch(addNew(message))
-            // });
-            // catch( () => alert('error') );
         },
         onLoad: () => {
             dispatch(startFetchHistory());

@@ -5,7 +5,8 @@ class ChatElement extends Component {
         super(props)
     }
     render(){
-        console.log(this.props);
+        let message  = this.props.message;
+        console.log(message);
         return(
             <div className="col s12">
                 <div className="card-panel white lighten-5 z-depth-1">
@@ -14,15 +15,15 @@ class ChatElement extends Component {
                             {/*<img src="default-avatar.png" alt="" className="circle responsive-img valign"/>*/}
                         {/*</div>*/}
                         <div className="col s7">
-                            <span className="black-text">{this.props.message.text}</span>
+                            <span className="black-text">{message.text}</span>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col s3 grey-text">
-                            {this.props.message.time}
+                            {message.time}
                         </div>
                         <div className="col s2 offset-s7">
-                            {this.props.message.user}
+                            {message.user}
                         </div>
                     </div>
                 </div>

@@ -28,7 +28,14 @@ io.on('connection', function(socket){
     });
     socket.on('ADD_MESSAGE', function (data) {
         console.log('action/ADD_MESSAGE');
-        io.emit('ADD_MESSAGE', data);
+        data = JSON.parse(data)
+        var date = new Date();
+        console.log(data);
+        data.message.user = 'Jone Dou';
+        data.message.time = date.toDateString();
+        console.log(data);
+
+        io.emit('ADD_MESSAGE', JSON.stringify(data));
         history.push(data);
     })
 });

@@ -42,10 +42,12 @@ const loadHistory = function (state = initialGeneralState, action){
         items: []
     };
 
-    action.historyJson.forEach((element) =>
-        newState.history.items.push(JSON.parse(element).message)
+    action.historyJson.forEach((element) =>{
+            console.log(element);
+            newState.history.items.push(element.message)
+    }
     );
-    
+
     return newState;
 };
 const startFetchingHistory = function (state = initialGeneralState, action){
