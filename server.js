@@ -34,7 +34,7 @@ io.on('connection', function(socket){
         data = JSON.parse(data)
         var date = new Date();
         console.log(data);
-        data.message.user = 'Jone Dou';
+        data.message.user = data.user;
         data.message.time = date.toDateString();
         console.log(data);
 

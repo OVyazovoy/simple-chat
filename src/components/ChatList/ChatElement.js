@@ -23,7 +23,7 @@ class ChatElement extends Component {
                             {message.time}
                         </div>
                         <div className="col s2 offset-s7">
-                            {message.user}
+                            {message.user.name}
                         </div>
                     </div>
                 </div>

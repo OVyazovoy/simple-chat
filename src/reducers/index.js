@@ -61,7 +61,7 @@ const startFetchingHistory = function (state = initialGeneralState, action){
     let newState = Object.assign({}, state);
     newState.history = {
         isFetching: true,
-        items: state.history.items.map(element => element)
+        items: state.history.items
     };
     return newState;
 };
@@ -70,21 +70,22 @@ const stopFetchingHistory = function (state = initialGeneralState, action){
     let newState = Object.assign({}, state);
     newState.history = {
         isFetching: false,
-        items: state.history.items.map(element => element)
+        items: state.history.items
     };
     return newState;
 };
 
 const addMessageReducer = function (state = initialGeneralState, action){
     let newState = Object.assign({}, state);
-
+    let message = action.message;
     newState.history = {
         isFetching: state.history.isFetching,
         items: state.history.items.map(element => element)
     };
 
     // state.history.items.forEach((element) => newState.history.items.push(element));
-    if(action.message != undefined){
+    if(message != undefined){
+        message.user = action.user;
         newState.history.items.push(action.message);
     }
 
@@ -98,9 +99,6 @@ const addUser = function (state = initialGeneralState, action) {
         id: action.user.id,
         name: action.user.name,
     };
-
-    console.log('action',action);
-    console.log('newState',newState);
 
     return newState;
 };

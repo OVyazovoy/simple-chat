@@ -1,11 +1,17 @@
 import React, {Component} from 'react';
 import ChatElement from './ChatElement';
 import SendForm from './SendForm';
+import ReactDOM from 'react-dom';
+
 
 class ChatList extends Component {
     constructor(props){
         super(props);
         this.props.onLoad();
+    }
+    setUserName(){
+        const userName = ReactDOM.findDOMNode(this.refs.userNameInput).value;
+        this.props.setUserName(userName);
     }
     _getHistory(){
         console.log(this.props.history.isFetching);
@@ -22,7 +28,6 @@ class ChatList extends Component {
                 }}
             />
         }
-        console.log(this.props.history.items);
         return this.props.history.items.map((message, i) => <ChatElement
             key={i}
             message={message}
@@ -34,6 +39,9 @@ class ChatList extends Component {
     }
     componentDidMount() {
 
+    }
+    addToHistory(text){
+        this.props.addToHistory(text,this.props.user)
     }
     render() {
         const history = this._getHistory();
@@ -53,10 +61,15 @@ class ChatList extends Component {
                     {history}
                 </div>
                 <SendForm
-                    addToHistory={this.props.addToHistory.bind(this)}
+                    addToHistory={this.addToHistory.bind(this)}
                 />
                 <button
                     onClick={this.props.clearHistory.bind(this)}
+                />
+                <input
+                    type="text"
+                    onChange={this.setUserName.bind(this)}
+                    ref='userNameInput'
                 />
             </div>
         )

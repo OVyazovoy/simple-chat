@@ -10,12 +10,15 @@ let socket;
 const getHistory = function (state) {
     return state.general.history
 };
-
+const getUser = function (state) {
+    return state.general.user
+};
 const mapStateToProps = (state,ownProps) => {
     socket = ownProps.socket;
     return {
         history: getHistory(state),
-        socket: ownProps.socket
+        socket: ownProps.socket,
+        user: getUser(state)
     }
 };
 
@@ -31,23 +34,17 @@ const mapDispatchToProps = (dispatch) => {
                 dispatch(stopFetchHistory())
             })
         },
-        addToHistory: (text) => {
-            socket.emit('ADD_MESSAGE',JSON.stringify({ 'message': {text} }));
+        addToHistory: (text, user) => {
+            socket.emit('ADD_MESSAGE',JSON.stringify(
+                {
+                    'message': {text},
+                    user
+                }
+            ));
         },
         onLoad: () => {
             var headers = new Headers();
             headers.set('Content-Type', 'application/json');
-
-            fetch('/setName', {
-                headers: headers,
-                method: 'post',
-                body: JSON.stringify({'name': 'test'})
-            }).then( resp => {
-                return resp.json();
-            }).then( (user) =>  {
-                console.log('user',user)
-                dispatch(addUser(user));
-            });
 
             dispatch(startFetchHistory());
             fetch('/history'). then( resp => {
@@ -57,6 +54,22 @@ const mapDispatchToProps = (dispatch) => {
                 dispatch(stopFetchHistory())
             })
         },
+        setUserName: (name) => {
+            console.log(name);
+            var headers = new Headers();
+            headers.set('Content-Type', 'application/json');
+
+            fetch('/setName', {
+                headers: headers,
+                method: 'post',
+                body: JSON.stringify({name})
+            }).then( resp => {
+                return resp.json();
+            }).then( (user) =>  {
+                console.log('user',user)
+                dispatch(addUser(user));
+            });
+        }
     }
 };
 

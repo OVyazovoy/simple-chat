@@ -28,7 +28,8 @@ const mapDispatchToProps = (dispatch) => {
             socket.on('ADD_MESSAGE', data => {
                 console.log('234234234234234');
                 console.log(data);
-                dispatch(addMessage(JSON.parse(data).message))
+                const ownData = JSON.parse(data)
+                dispatch(addMessage(ownData.message, ownData.user))
             });
             socket.on('CLEAR_HISTORY', data => {
                 dispatch(clearHistory())

@@ -1,6 +1,6 @@
-export const addMessage = (message) => {
+export const addMessage = (message, user) => {
     console.log('Action message: ' + message);
-    return { type: 'ADD_MESSAGE', message}
+    return { type: 'ADD_MESSAGE', message, user}
 };
 export const loadHistory = (historyJson) => {
     console.log('Action message: ' + historyJson);
