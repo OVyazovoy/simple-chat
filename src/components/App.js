@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ChatContainer from '../containers/Chat';
-
+import SignUpForm from '../containers/SignUpContainer'
 class App extends Component {
     constructor(props = {}) {
         super(props);
@@ -9,8 +9,12 @@ class App extends Component {
     }
 
     render() {
+        const user = this.props.user;
         return (
-            <ChatContainer />
+            <div>
+                <ChatContainer />
+                {user.name ? null : <SignUpForm/>}
+            </div>
         )
     }
 }

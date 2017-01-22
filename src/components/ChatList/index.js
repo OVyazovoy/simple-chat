@@ -66,11 +66,6 @@ class ChatList extends Component {
                 <button
                     onClick={this.props.clearHistory.bind(this)}
                 />
-                <input
-                    type="text"
-                    onChange={this.setUserName.bind(this)}
-                    ref='userNameInput'
-                />
             </div>
         )
     }

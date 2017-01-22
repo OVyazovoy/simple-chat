@@ -1,16 +1,6 @@
 import { combineReducers } from 'redux'
+import initialGeneralState from '../store/initialGeneralState'
 
-const initialGeneralState = {
-    history: {
-        isFetching: false,
-        items: [],
-    },
-    user: {
-        isFetching: false,
-        id: null,
-        name: null
-    }
-};
 
 const general = (state = initialGeneralState, action) => {
 
@@ -49,11 +39,12 @@ const loadHistory = function (state = initialGeneralState, action){
         items: []
     };
 
-    action.historyJson.forEach((element) =>{
-            console.log(element);
-            newState.history.items.push(element.message)
-    }
-    );
+    newState.history.items = [...action.historyJson]
+    // action.historyJson.forEach((element) =>{
+    //         console.log(element);
+    //         newState.history.items.push(element.message)
+    // }
+    // );
 
     return newState;
 };
@@ -78,17 +69,12 @@ const stopFetchingHistory = function (state = initialGeneralState, action){
 const addMessageReducer = function (state = initialGeneralState, action){
     let newState = Object.assign({}, state);
     let message = action.message;
-    newState.history = {
-        isFetching: state.history.isFetching,
-        items: state.history.items.map(element => element)
-    };
-
-    // state.history.items.forEach((element) => newState.history.items.push(element));
     if(message != undefined){
-        message.user = action.user;
-        newState.history.items.push(action.message);
+        newState.history = {
+            isFetching: state.history.isFetching,
+            items: [...state.history.items, action.message]
+        };
     }
-
     return newState;
 };
 const addUser = function (state = initialGeneralState, action) {
