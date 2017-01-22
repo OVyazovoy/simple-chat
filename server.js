@@ -57,6 +57,17 @@ app.get('/clear/history', function(req, res, next){
     io.emit('CLEAR_HISTORY');
     res.send(history);
 });
+app.get('/users', function(req, res, next){
+    console.log(activeUsers)
+    res.send(activeUsers);
+});
+app.get('/user/delete/:id', function(req, res, next){
+    const id = req.params.id;
+    activeUsers = activeUsers.filter((user)=>{
+        return user.id != id
+    });
+    res.send(activeUsers)
+});
 app.get('/history', function(req, res, next){
     res.send(history);
 });

@@ -1,6 +1,6 @@
 import React , {Component} from 'react';
 import classNames from 'classnames';
-import UserList from './usersList';
+import UserList from '../containers/UserListContainer';
 import ChatListContainer from '../containers/ChatListContainer';
 class Chat extends Component {
     constructor(props = {}){

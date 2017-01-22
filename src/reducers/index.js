@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux'
+import {combineReducers} from 'redux'
 import initialGeneralState from '../store/initialGeneralState'
 
 
@@ -17,13 +17,34 @@ const general = (state = initialGeneralState, action) => {
             return addMessageReducer(state, action);
         case 'ADD_USER':
             return addUser(state, action);
+        case 'LOAD_USERS':
+            return loadUsers(state, action);
         default:
             return state;
     }
 
 };
 
-const clearHistory = function (state = initialGeneralState, action){
+const loadUsers = function (state = initialGeneralState, action) {
+    let newState = Object.assign({}, state),
+        findMe = false;//todo i dont like it
+    newState.users = {
+        isFetching: state.users.isFetching,
+        items:  [...action.users]
+    };
+    action.users.forEach((user) => {
+        if(!findMe){
+            findMe = user.id == state.user.id
+        }
+    });
+    if(!findMe){
+        console.log('find me user');
+        newState.user = initialGeneralState.user
+    }
+    return newState;
+};
+
+const clearHistory = function (state = initialGeneralState, action) {
     let newState = Object.assign({}, state);
     newState.history = {
         isFetching: state.history.isFetching,
@@ -32,7 +53,7 @@ const clearHistory = function (state = initialGeneralState, action){
 
     return newState;
 };
-const loadHistory = function (state = initialGeneralState, action){
+const loadHistory = function (state = initialGeneralState, action) {
     let newState = Object.assign({}, state);
     newState.history = {
         isFetching: state.history.isFetching,
@@ -48,7 +69,7 @@ const loadHistory = function (state = initialGeneralState, action){
 
     return newState;
 };
-const startFetchingHistory = function (state = initialGeneralState, action){
+const startFetchingHistory = function (state = initialGeneralState, action) {
     let newState = Object.assign({}, state);
     newState.history = {
         isFetching: true,
@@ -57,7 +78,7 @@ const startFetchingHistory = function (state = initialGeneralState, action){
     return newState;
 };
 
-const stopFetchingHistory = function (state = initialGeneralState, action){
+const stopFetchingHistory = function (state = initialGeneralState, action) {
     let newState = Object.assign({}, state);
     newState.history = {
         isFetching: false,
@@ -66,10 +87,10 @@ const stopFetchingHistory = function (state = initialGeneralState, action){
     return newState;
 };
 
-const addMessageReducer = function (state = initialGeneralState, action){
+const addMessageReducer = function (state = initialGeneralState, action) {
     let newState = Object.assign({}, state);
     let message = action.message;
-    if(message != undefined){
+    if (message != undefined) {
         newState.history = {
             isFetching: state.history.isFetching,
             items: [...state.history.items, action.message]

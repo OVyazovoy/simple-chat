@@ -10,6 +10,10 @@ const initialGeneralState = {
         isFetching: false,
         id: null,
         name: null
+    },
+    users: {
+        isFetching: false,
+        items: []
     }
 }
 export default initialGeneralState

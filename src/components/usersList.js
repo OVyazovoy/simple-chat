@@ -1,32 +1,28 @@
 import React, {Component} from 'react';
-import Users from '../store/users';
 
 class UserList extends Component {
     constructor(props = {}) {
         super(props);
-        this.state = {
-            Users
-        }
     }
 
     getList() {
-        return this.state.Users.map((user, id) =>
-            <li
-                key={id}
-            >
-                {user.first}
-                <button
-                    onClick={this.clickHandler.bind(this, id)}
-                >
-                    del
-                </button>
-            </li>)
+        if (!this.props.users.items.length){
+            return(
+                <span>sorry no users</span>
+            )
+        }
+
+        return this.props.users.items.map((user, id) =>
+            <UserCmponent
+                user={user}
+                clickHandler={this.clickHandler.bind(this)}
+            />
+        )
     }
 
     clickHandler(id) {
-        let state = this.state.Users;
-        state.splice(id,1);
-        this.setState({state})
+        this.props.deleteUser(id)
+        //delete user on server
     }
 
     render() {
@@ -40,5 +36,21 @@ class UserList extends Component {
         )
     }
 }
+class UserCmponent extends Component {
+    constructor(props) {
+        super(props)
+    }
 
+    render() {
+        const user = this.props.user
+        return (<li key={user.id}>
+            {user.name}
+            <button
+                onClick={() => this.props.clickHandler(user.id)}
+            >
+                delete
+            </button>
+        </li>)
+    }
+}
 export default UserList;

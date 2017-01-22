@@ -18,3 +18,7 @@ export const clearHistory = () => {
 export const addUser = (user) => {
     return { type: 'ADD_USER', user}
 };
+
+export const loadUsers = (users) => {
+    return { type: 'LOAD_USERS', users}
+};

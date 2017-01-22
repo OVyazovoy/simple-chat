@@ -12,8 +12,7 @@ class App extends Component {
         const user = this.props.user;
         return (
             <div>
-                <ChatContainer />
-                {user.name ? null : <SignUpForm/>}
+                {user.name ? <ChatContainer /> : <SignUpForm/>}
             </div>
         )
     }

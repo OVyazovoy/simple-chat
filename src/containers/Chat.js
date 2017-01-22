@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import Chat from  '../components/Chat';
 import io from 'socket.io-client';
 
-import {addMessage,clearHistory} from '../actions/index';
+import {addMessage,clearHistory, loadUsers} from '../actions/index';
 const testStore = function (state) {
     return state.history
 };
@@ -20,20 +20,25 @@ const mapStateToProps = (state) => {
         socket: socket
     }
 };
+const fetchUsers = (dispatch) => {
+    fetch('/users').then(resp => resp.json())
+        .then(users => {
+            dispatch(loadUsers(users))
+        })
+};
 
 const mapDispatchToProps = (dispatch) => {
     return {
         init: () => {
             console.log('Chat init');
             socket.on('ADD_MESSAGE', data => {
-                console.log('234234234234234');
-                console.log(data);
                 const ownData = JSON.parse(data)
                 dispatch(addMessage(ownData.message, ownData.user))
             });
             socket.on('CLEAR_HISTORY', data => {
                 dispatch(clearHistory())
             });
+            fetchUsers(dispatch)
         }
     }
 };
