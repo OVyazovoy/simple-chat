@@ -1,12 +1,16 @@
 import {connect} from 'react-redux';
 import UserList from '../components/usersList';
 import {loadUsers} from '../actions'
+const getUser = function (state) {
+    return state.general.user;
+}
 const getUsers = function (state) {
     return state.general.users
 };
 const mapStateToProps = (state, ownProps) => {
     return {
-        users: getUsers(state)
+        users: getUsers(state),
+        user: getUser(state)
     }
 };
 const mapDispatchToProps = (dispatch) => {
