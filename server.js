@@ -31,15 +31,15 @@ io.on('connection', function(socket){
     });
     socket.on('ADD_MESSAGE', function (data) {
         console.log('action/ADD_MESSAGE');
-        data = JSON.parse(data)
+        data = JSON.parse(data);
         var date = new Date();
-        console.log(data);
-        data.message.user = data.user;
-        data.message.time = date.toDateString();
-        console.log(data);
+        var message = data;
 
-        io.emit('ADD_MESSAGE', JSON.stringify(data));
-        history.push(data);
+        message.time = date.toDateString();
+        message.text = data.message.text;
+
+        io.emit('ADD_MESSAGE', JSON.stringify(message));
+        history.push(message);
     })
 });
 

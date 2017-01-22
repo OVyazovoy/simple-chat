@@ -5,6 +5,10 @@ import initialGeneralState from '../store/initialGeneralState'
 const general = (state = initialGeneralState, action) => {
 
     switch (action.type) {
+        case 'START_FETCHING':
+            return startFetching(state, action);
+        case 'STOP_FETCHING':
+            return stopFetching(state, action);
         case 'START_FETCHING_HISTORY':
             return startFetchingHistory(state, action);
         case 'STOP_FETCHING_HISTORY':
@@ -24,7 +28,18 @@ const general = (state = initialGeneralState, action) => {
     }
 
 };
-
+const startFetching = function (state = initialGeneralState, action) {
+    let newState = Object.assign({}, state);
+    newState[action.state] = Object.assign({}, state[action.state]);
+    newState[action.state].isFetching = true;
+    return newState;
+};
+const stopFetching = function (state = initialGeneralState, action) {
+    let newState = Object.assign({}, state);
+    newState[action.state] = Object.assign({}, state[action.state]);
+    newState[action.state].isFetching = false;
+    return newState;
+};
 const loadUsers = function (state = initialGeneralState, action) {
     let newState = Object.assign({}, state),
         findMe = false;//todo i dont like it
@@ -55,35 +70,15 @@ const clearHistory = function (state = initialGeneralState, action) {
 };
 const loadHistory = function (state = initialGeneralState, action) {
     let newState = Object.assign({}, state);
+    console.log(action.historyJson);
+    console.log('history json')
     newState.history = {
         isFetching: state.history.isFetching,
         items: []
     };
 
-    newState.history.items = [...action.historyJson]
-    // action.historyJson.forEach((element) =>{
-    //         console.log(element);
-    //         newState.history.items.push(element.message)
-    // }
-    // );
+    newState.history.items = [...action.historyJson];
 
-    return newState;
-};
-const startFetchingHistory = function (state = initialGeneralState, action) {
-    let newState = Object.assign({}, state);
-    newState.history = {
-        isFetching: true,
-        items: state.history.items
-    };
-    return newState;
-};
-
-const stopFetchingHistory = function (state = initialGeneralState, action) {
-    let newState = Object.assign({}, state);
-    newState.history = {
-        isFetching: false,
-        items: state.history.items
-    };
     return newState;
 };
 

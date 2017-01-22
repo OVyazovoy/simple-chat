@@ -1,6 +1,6 @@
-export const addMessage = (message, user) => {
+export const addMessage = (message) => {
     console.log('Action message: ' + message);
-    return { type: 'ADD_MESSAGE', message, user}
+    return { type: 'ADD_MESSAGE', message}
 };
 export const loadHistory = (historyJson) => {
     console.log('Action message: ' + historyJson);
@@ -21,4 +21,12 @@ export const addUser = (user) => {
 
 export const loadUsers = (users) => {
     return { type: 'LOAD_USERS', users}
+};
+
+export const startFetching = (state) => {
+  return {type: 'START_FETCHING', state}
+};
+
+export const stopFetching = (state) => {
+    return {type: 'STOP_FETCHING', state}
 };

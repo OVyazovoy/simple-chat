@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch) => {
             console.log('Chat init');
             socket.on('ADD_MESSAGE', data => {
                 const ownData = JSON.parse(data)
-                dispatch(addMessage(ownData.message, ownData.user))
+                dispatch(addMessage(ownData))
             });
             socket.on('CLEAR_HISTORY', data => {
                 dispatch(clearHistory())

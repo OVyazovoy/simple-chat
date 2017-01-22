@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import ChatList from  '../components/ChatList';
 import { addNew, loadHistory,
-    startFetchHistory, stopFetchHistory,
+    startFetching, stopFetching,
     clearHistory, addUser
 } from '../actions'
 
@@ -25,13 +25,13 @@ const mapStateToProps = (state,ownProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         clearHistory: () => {
-            dispatch(startFetchHistory());
+            dispatch(startFetching('history'));
             fetch('/clear/history').
             then( resp => {
                 return resp.json();
             }).then(() => {
                 dispatch(clearHistory());
-                dispatch(stopFetchHistory())
+                dispatch(stopFetching('history'))
             })
         },
         addToHistory: (text, user) => {
@@ -46,12 +46,12 @@ const mapDispatchToProps = (dispatch) => {
             var headers = new Headers();
             headers.set('Content-Type', 'application/json');
 
-            dispatch(startFetchHistory());
+            dispatch(startFetching('history'));
             fetch('/history'). then( resp => {
                 return resp.json();
             }).then(history => {
                 dispatch(loadHistory(history));
-                dispatch(stopFetchHistory())
+                dispatch(stopFetching('history'))
             })
         },
         setUserName: (name) => {
