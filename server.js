@@ -45,11 +45,19 @@ io.on('connection', function(socket){
 
 app.post('/setName', function(req, res, next){
     var name = req.body.name;
+    var findUser = false;
     var user = {
         id: md5(name),
         name: name
     };
-    activeUsers.push(user);
+    activeUsers.forEach(activeUser => {
+        if(activeUser.name == user.name && !findUser){
+            findUser = true
+        }
+    });
+    if(!findUser){
+        activeUsers.push(user);
+    }
     res.send(user);
 });
 app.get('/clear/history', function(req, res, next){

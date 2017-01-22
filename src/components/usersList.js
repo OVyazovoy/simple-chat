@@ -6,14 +6,21 @@ class UserList extends Component {
     }
 
     getList() {
-        if (!this.props.users.items.length) {
+        let users = this.props.users;
+        if(users.isFetching){
+            return (
+                <span>Загружается...</span>
+            )
+        }
+        if (!users.items.length) {
             return (
                 <span>sorry no users</span>
             )
         }
 
         return this.props.users.items.map((user, id) =>
-            <UserCmponent
+            <UserComponent
+                key={id}
                 user={user}
                 me={this.props.user}
                 clickHandler={this.clickHandler.bind(this)}
@@ -36,7 +43,7 @@ class UserList extends Component {
         )
     }
 }
-class UserCmponent extends Component {
+class UserComponent extends Component {
     constructor(props) {
         super(props)
     }
@@ -63,7 +70,7 @@ class UserCmponent extends Component {
         return (
             <li
                 className={isYouClass}
-                key={user.id}>
+            >
                 {user.name}
                 {this.showDeleteBtn()}
             </li>
